@@ -1,7 +1,7 @@
 const express = require('express'); // library express 
 
 const mongoose = require('mongoose');
-
+const { host, port } = require('../../config');
 const dbConnect = require('../connection/dbconnect');
 const router = require('../routers');
 
@@ -12,4 +12,4 @@ app.use(express.urlencoded({ extended : true }));
 dbConnect(mongoose);
 router(app);
 
-app.listen(3000, () => console.log('server running')); // port
+app.listen(port, () => console.log(`server running at http://${host}:${port}`)); // port
