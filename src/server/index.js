@@ -12,4 +12,4 @@ app.use(express.urlencoded({ extended : true }));
 dbConnect(mongoose);
 router(app);
 
-app.listen(3000, () => console.log(`server running at http://localhost:3000`)); // port
+app.listen(port, () => console.log(`server running at http://${host}:${port}`)); // port

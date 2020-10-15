@@ -8,10 +8,10 @@ const router = express.Router();
 router.post('/add/news', async (req, res) => {
 try {
     const { error, value } = addNewsSchema.validate(req.body);
-    const { judul, content, author, category } = value;
     if (error) {
         throw new Error(error.message);
     };
+    const { judul, content, author, category } = value;
     const user = await Users.findOne({
         _id: mongoose.Types.ObjectId(author)
     });
@@ -23,7 +23,7 @@ try {
         Types.ObjectId(category)
     });
     if (!categori) {
-        throw new Error('user tidak valid');
+        throw new Error('category tidak valid');
     }
     const news = new News({
         judul, 
@@ -31,11 +31,14 @@ try {
         author, 
         category
     });
-    const result = await news.save();
-    res.send(result);
+    await news.save();
+    res.send(news);
 
 } catch(e) {
     res.send({ message: e.message });
 }
 });
 module.exports = router;
+
+
+//how to pull and push vscode to github

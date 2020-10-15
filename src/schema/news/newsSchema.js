@@ -14,7 +14,6 @@ const addNewSchema = Joi.object({
     .required(),
     category: Joi.string()
     .min(5)
-    .max(30)
     .required(),
 });
 

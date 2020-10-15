@@ -14,3 +14,6 @@ try {
 }
 });
 module.exports = router;
+
+//gunakan looping
+// promise all javascript
