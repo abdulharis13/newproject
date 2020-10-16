@@ -1,12 +1,12 @@
 const express = require('express');
 const { Users } = require('../../models');
-// const { message } = require('../../schema/users/loginSchema');
-// const { addCategorySchema } = require('../../schema');
+const { authenticator } = require('../../middleware')
+
 const router = express.Router();
 
-router.get('/get/users', async (req, res) => {
+router.get('/get/users', authenticator, async (req, res) => {
 try {
-    const result = await Users.find({}).select("-password"); // berlaku untuk find, findOne
+    const result = await Users.find({}); // berlaku untuk find, findOne
     res.send(result);
     
 } catch(e) {

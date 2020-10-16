@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const addCategorySchema = new mongoose.Schema ({
     namaCategory: {
         type: String,

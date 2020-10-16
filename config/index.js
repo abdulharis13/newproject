@@ -1,7 +1,9 @@
 require('dotenv').config();
 
-const config= {
+const config = {
     host: process.env.HOST,
     port: process.env.PORT,
-    key: "yourPrivatekey"
-}
+    privateKey: process.env.KEY
+};
+
+module.exports = config;
