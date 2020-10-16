@@ -1,10 +1,16 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const { privateKey } = require('../../../config')
+
+
 const { Users } = require('../../models');
 const { registerSchema } = require('../../schema');
 const router = express.Router();
 
 router.post('/users/register', async (req, res) => {
-
+    const saltRounds = 10;
+    const salt = bcrypt.genSaltSync(saltRounds);
     try {
         const { error, value } = registerSchema.validate(req.body);
         if (error) {
@@ -21,10 +27,16 @@ router.post('/users/register', async (req, res) => {
             username,
             namalengkap,
             email,
-            password
+            password: bcrypt.hashSync(password, salt)
         });
         await user.save();
-        res.send({ username, namalengkap, email });
+
+        let response = { ...user._doc };
+        delete response.password;
+
+        const token = jwt.sign(response, privateKey);
+        res.send({ ...response, token });
+
     } catch (e) {
         res.send({ message: e.message });
     }
